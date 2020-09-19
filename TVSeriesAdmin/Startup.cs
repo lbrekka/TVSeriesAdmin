@@ -27,7 +27,8 @@ namespace TVSeriesAdmin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            
+            services.AddSpaStaticFiles(options => options.RootPath = "client-app/dist");
+
             services.AddHttpClient<ITvMazeFetcher, TvMazeFetcher>();
             //services.AddTransient<ITvMazeFetcher, TvMazeFetcher>();
             services.AddTransient<ILocalDataContext, LocalDataContext>();
@@ -47,6 +48,17 @@ namespace TVSeriesAdmin
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseSpaStaticFiles();
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "client-app";
+                if (env.IsDevelopment())
+                {
+                    // Launch development server for Vue.js
+                    spa.UseVueDevelopmentServer();
+                }
+            });
         }
     }
 }

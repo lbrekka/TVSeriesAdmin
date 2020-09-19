@@ -32,14 +32,16 @@ namespace TVSeriesAdmin.DataAccess
             foreach (TvShowName tvShowName in _localdata.GetTvShowNames())
             {
                 var name = tvShowName.Name;
-                var httpResponse = await _client.GetAsync($"{BaseUrl}{query}{name}");
+                
 
                 int i = 0;
 
                 while (i < 10)
                 {
+                    var httpResponse = await _client.GetAsync($"{BaseUrl}{query}{name}");
                     if (!httpResponse.IsSuccessStatusCode)
                     {
+                        // todo: må ha ny httpRespinse
                         await Task.Delay(1000);
                         i++;
                     }
