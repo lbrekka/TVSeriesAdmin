@@ -27,6 +27,7 @@ namespace TVSeriesAdmin.Models
         public Image? Image { get; set; }
         public String? Summary { get; set; }
         public int Updated { get; set; }
+        [JsonProperty("_links")]
         public Links? Links { get; set; }
     }
 }

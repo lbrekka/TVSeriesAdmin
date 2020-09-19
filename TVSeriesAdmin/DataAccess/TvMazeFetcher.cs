@@ -11,9 +11,6 @@ namespace TVSeriesAdmin.DataAccess
 {
     public class TvMazeFetcher : ITvMazeFetcher
     {
-        //private String baseUriString = "http://api.tvmaze.com/";
-        //private IList responseToReturn;
-
         private const string BaseUrl = "http://api.tvmaze.com/";
         private readonly HttpClient _client;
 
@@ -29,25 +26,33 @@ namespace TVSeriesAdmin.DataAccess
         {
             string query = "/singlesearch/shows?q=";
             var shows = new List<TvShow>();
+            String content;
+            TvShow show;
 
             foreach (TvShowName tvShowName in _localdata.GetTvShowNames())
             {
                 var name = tvShowName.Name;
                 var httpResponse = await _client.GetAsync($"{BaseUrl}{query}{name}");
 
-                if (!httpResponse.IsSuccessStatusCode)
+                int i = 0;
+
+                while (i < 10)
                 {
-                    throw new Exception("Cannot retrieve tasks");
+                    if (!httpResponse.IsSuccessStatusCode)
+                    {
+                        await Task.Delay(1000);
+                        i++;
+                    }
+                    else
+                    {
+                        content = await httpResponse.Content.ReadAsStringAsync();
+                        show = JsonConvert.DeserializeObject<TvShow>(content);
+                        shows.Add(show);
+                        break;
+                    }
                 }
-
-                var content = await httpResponse.Content.ReadAsStringAsync();
-                var show = JsonConvert.DeserializeObject<TvShow>(content);
-
-                shows.Add(show);
             }
-
             return shows;
         }
-
     }
 }
