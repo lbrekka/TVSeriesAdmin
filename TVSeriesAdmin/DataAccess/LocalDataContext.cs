@@ -7,7 +7,7 @@ using TVSeriesAdmin.Models;
 
 namespace TVSeriesAdmin.DataAccess
 {
-    public class LocalDataContext : ILocalDataContex
+    public class LocalDataContext : ILocalDataContext
     {
         public IEnumerable<TvShowName> GetTvShowNames()
         {

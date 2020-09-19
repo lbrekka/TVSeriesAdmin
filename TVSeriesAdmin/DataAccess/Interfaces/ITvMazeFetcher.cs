@@ -6,8 +6,8 @@ using TVSeriesAdmin.Models;
 
 namespace TVSeriesAdmin.DataAccess
 {
-    interface ILocalDataContex
+    public interface ITvMazeFetcher
     {
-        IEnumerable<T> GetTvShowNames();
+        Task<List<TvShow>> GetAllAsync();
     }
 }
