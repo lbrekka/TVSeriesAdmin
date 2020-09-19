@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using TVSeriesAdmin.DataAccess;
 
 namespace TVSeriesAdmin
 {
@@ -14,7 +15,12 @@ namespace TVSeriesAdmin
     {
         public static void Main(string[] args)
         {
+            //var data = new Data();
+            //var navn = data.GetTvShowNames();
             CreateWebHostBuilder(args).Build().Run();
+
+            // testing
+            
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
