@@ -22,12 +22,12 @@ namespace TVSeriesAdmin.DataAccess
             _client = client;
         }
 
-        public async Task<List<TvShow>> GetAllAsync()
+        public async Task<List<TvShowForTable>> GetAllAsync()
         {
             string query = "/singlesearch/shows?q=";
-            var shows = new List<TvShow>();
+            var shows = new List<TvShowForTable>();
             String content;
-            TvShow show;
+            TvShowForTable show;
 
             foreach (TvShowName tvShowName in _localdata.GetTvShowNames())
             {
@@ -48,13 +48,23 @@ namespace TVSeriesAdmin.DataAccess
                     else
                     {
                         content = await httpResponse.Content.ReadAsStringAsync();
-                        show = JsonConvert.DeserializeObject<TvShow>(content);
+                        show = JsonConvert.DeserializeObject<TvShowForTable>(content);
                         shows.Add(show);
                         break;
                     }
                 }
             }
             return shows;
+        }
+
+        public async Task<EpisodeByDate> GetEpisodeByDate(DateTime date, int id)
+        {
+            string query = $"/shows/{id}/episodesbydate?date={date}";
+            var httpResponse = await _client.GetAsync($"{BaseUrl}{query}");
+            var content = await httpResponse.Content.ReadAsStringAsync();
+            var episode = JsonConvert.DeserializeObject<EpisodeByDate>(content);
+
+            return episode;
         }
     }
 }
