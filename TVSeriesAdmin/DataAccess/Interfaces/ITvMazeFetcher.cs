@@ -8,6 +8,8 @@ namespace TVSeriesAdmin.DataAccess
 {
     public interface ITvMazeFetcher
     {
-        Task<List<TvShow>> GetAllAsync();
+        Task<List<TvShowForTable>> GetAllAsync();
+        Task<EpisodeByDate> GetEpisodeByDate(DateTime date, int id);
+        Task<String> GetHttpResponse(String url);
     }
 }

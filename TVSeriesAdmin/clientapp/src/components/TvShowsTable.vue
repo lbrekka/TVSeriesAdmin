@@ -32,7 +32,7 @@
 <script>
 export default {
   name: 'Shows',
-  fields: ['id', 'name', 'name'],
+//   fields: ['id', 'name', 'name'],
   props: ["shows"],
 //   data() {
 //       return {

@@ -22,11 +22,6 @@ namespace TVSeriesAdmin.Reports
             var tvShows = await _service.GetAllAsync();
             var l = tvShows.Where(show => show.Status != "Ended");
 
-            foreach (TvShow show in tvShows)
-            {
-                show.Schedule.Days
-            }
-
             return reportstring;
         }
     }

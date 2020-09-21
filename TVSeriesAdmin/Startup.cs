@@ -29,7 +29,6 @@ namespace TVSeriesAdmin
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddHttpClient<ITvMazeFetcher, TvMazeFetcher>();
-            //services.AddTransient<ITvMazeFetcher, TvMazeFetcher>();
             services.AddTransient<ILocalDataContext, LocalDataContext>();
 
             services.AddSpaStaticFiles(options => { options.RootPath = "wwwroot"; });
